@@ -4,13 +4,14 @@
 # AESD-ASSIGNMENTS
 #
 ##############################################################
-AESD_ASSIGNMENTS_VERSION = 0c9c13d4845d89587ecd1ba5b6696439f0a99824
+AESD_ASSIGNMENTS_VERSION = eef8602f4bb85e9d8ba2e45a18328d7f5c489d8b
 AESD_ASSIGNMENTS_SITE = git@github.com:Ankit01020304/aeld-assignment-3-and-later.git
 AESD_ASSIGNMENTS_SITE_METHOD = git
 AESD_ASSIGNMENTS_GIT_SUBMODULES = YES
 
 define AESD_ASSIGNMENTS_BUILD_CMDS
 	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/finder-app all
+    	$(MAKE) $(TARGET_CONFIGURE_OPTS) -C $(@D)/server all
 endef
 
 define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
@@ -34,6 +35,14 @@ define AESD_ASSIGNMENTS_INSTALL_TARGET_CMDS
 	$(INSTALL) -D -m 0755 \
 		$(@D)/finder-app/writer.sh \
 		$(TARGET_DIR)/usr/bin/writer.sh
+	
+	$(INSTALL) -D -m 0755 \
+                $(@D)/server/aesdsocket \
+                $(TARGET_DIR)/usr/bin/aesdsocket
+	
+        $(INSTALL) -D -m 0755 \
+               $(@D)/server/aesdsocket-start-stop \
+               $(TARGET_DIR)/etc/init.d/S99aesdsocket
 
 	$(INSTALL) -d \
 		$(TARGET_DIR)/etc/finder-app/conf
